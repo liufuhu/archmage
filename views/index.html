@@ -1,0 +1,124 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+  <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/dashboard.css">
+	<title></title>
+</head>
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><strong>Zealot.</strong> a useful db-tool.  </a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+          	<li><a href="#">当前环境:$target</a></li>
+          	<li><a href="#">登陆用户:[ $fullname ]</a></li>
+          </ul>
+          <!--<form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form> -->
+        </div>
+      </div>
+	</div>
+
+     <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <input autofocus="autofocus"  id="search_filter" type="text" class="form-control" style="margin:5px 0px;width:150px" placeholder="Search...">
+          <ul id="dbTables" class="nav nav-sidebar">
+            <% for(var i=0; i<tables.length; i++) { %>
+          		<li><a class="table_node" href="#"><%= tables[i] %></a></li>
+            <% } %>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h4  class="page-header"><span id="board_table_name">Dashboard</span>
+            <a id="show_create" href="#" data-placement="bottom"  class="btn btn-primary" data-content="" style="margin-bottom:5px;margin-left: 50px" role="button">查看表结构</a>
+            <% if( !env || (env != "online") || (env != "pre") ) { %>
+            	<a id="view_mode" href="#" data-placement="bottom" mode='view' class="btn btn-primary" data-content="" style="margin-bottom:5px;margin-left: 20px" role="button">查看模式</a>
+            	<a href="#inserModal" class="btn btn-large btn-info" type="button" id="insertBtn" data-toggle="modal" style="display:none;margin-bottom:5px;">插 入</a>
+            <% } %>
+          <!--  <a id="insert_table" href="#" data-placement="bottom"  class="btn btn-primary" data-content="" style="margin-bottom:5px;margin-left: 20px" role="button">插入</a> -->
+          </h4>
+          
+          <div class="input-group">
+            <div class="input-group-btn">
+              <button id='query_type' type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> where 条件 <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a class='query_type' href="#">where条件</a></li>
+                <li><a class='query_type' href="#">完整sql</a></li>
+              </ul>
+            </div>
+	          <input id="query" type="text" class="form-control" placeholder="查询条件，可以不输(全匹配)' ,输入举例：'id=1';'id=1 and name='abc'">
+		        <span class="input-group-btn" >
+		        <button id="go" class="btn btn-default" style="width:150px" type="button">Go!</button>
+		      </span>
+		  </div>
+
+          <div class="table-responsive" style="margin-top: 10px">
+            <table id="dbRows" class="table table-striped">
+              <thead>
+                <tr id="result_col">
+                  <th>#</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                </tr>
+              </thead>
+              <tbody id="result_col_value">
+                <tr>
+                  <td>1,001</td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                </tr>
+                <tr>
+                  <td>1,002</td>
+                  <td>amet</td>
+                  <td>consectetur</td>
+                  <td>adipiscing</td>
+                  <td>elit</td>
+                </tr>
+            </tbody>
+        </table>
+          </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- insert Modal -->
+    <div id="inserModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">插入一条记录</h3>
+      </div>
+      <div class="modal-body">
+        <fieldset id="modalBody">
+          <label>Label name</label>
+          <input type="text" placeholder="">
+        </fieldset>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">关 闭</button>
+        <button class="btn btn-primary" id="saveNewRecord">保 存</button>
+      </div>
+    </div>
+  
+  </body>
+
+	<script src="../static/bootstrap/js/jquery-1.7.1.min.js"></script>
+	<script src="../static/bootstrap/js/bootstrap.min.js"></script>
+  	<script src="../static/javascript/common.js"></script>
+  	<script src="../static/javascript/dashboard.js"></script>
+</html>
