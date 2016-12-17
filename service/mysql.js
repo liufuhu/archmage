@@ -1,16 +1,29 @@
 var mysql      		= require('mysql');
 var config		 	= require('../config');
 
-console.log(config.host);
-var connection = mysql.createConnection({
-  host     	: config.host,
-  user     	: config.user,
-  port		: config.port,
-  password 	: config.password,
-  database 	: config.database
-});
+var connection;
 
-connection.connect();
+function connect(){
+	connection = mysql.createConnection({
+	  host     	: config.host,
+	  user     	: config.user,
+	  port		: config.port,
+	  password 	: config.password,
+	  database 	: config.database
+	});
+
+	connection.connect();	
+
+	connection.on('error', function(err){
+		if(err.code == 'PROTOCOL_CONNECTION_LOST'){
+			connect();
+		}else{
+			console.log(err.stack || err);
+		}
+	})
+}
+
+connect();
 
 
 
